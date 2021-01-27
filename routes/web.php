@@ -18,8 +18,11 @@ Route::get('/', function () {
 });
 
 
+// Route::get('/', function () {
+//     return redirect('bookings');
+// });
 
-Route::resource('bookings',App\Http\Controllers\BookingController::class);
+// Route::resource('bookings',App\Http\Controllers\BookingController::class);
 
 
 Auth::routes();
