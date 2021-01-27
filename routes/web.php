@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('bookings');
 });
+
+Route::resource('bookings',App\Http\Controllers\BookingController::class);
+
 
 Auth::routes();
 
