@@ -215,7 +215,7 @@
                 
         </style>
 
-        <link rel="stylesheet" href="/css/stylenav.css">
+        <link rel="stylesheet" href="{{ asset('css/stylenav.css') }}">
 
 
 
