@@ -19,5 +19,6 @@ Route::get('/', function () {
 });
 
 Route::resource('bookings',App\Http\Controllers\BookingController::class);
+Route::post('bookings/update_cal',[App\Http\Controllers\BookingController::class,'update_cal'])->name('bookings.update_cal');
 
 
