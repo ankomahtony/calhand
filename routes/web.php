@@ -13,18 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('bookings');
 });
 
-
-// Route::get('/', function () {
-//     return redirect('bookings');
-// });
-
-// Route::resource('bookings',App\Http\Controllers\BookingController::class);
+Route::resource('bookings',App\Http\Controllers\BookingController::class);
 
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
