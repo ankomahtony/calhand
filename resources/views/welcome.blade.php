@@ -196,6 +196,20 @@
                         max-width: 100%;
                         text-align: center;
                     }
+
+                    .card-container-mini {
+                        background-color: #231E39;
+                        border-radius: 5px;
+                        box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+                        color: #B3B8CD;
+                        padding-top: 30px;
+                        margin-left:30px;
+                        position: relative;
+                        width:90%;
+                        max-width: 100%;
+                        text-align: center;
+                        
+                    }
                 }
                 @media (max-width: 550px) {
                     .card-container {
@@ -210,6 +224,20 @@
                         width: 90%;
                         max-width: 100%;
                         text-align: center;
+                    }
+
+                    .card-container-mini {
+                        background-color: #231E39;
+                        border-radius: 5px;
+                        box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+                        color: #B3B8CD;
+                        padding-top: 30px;
+                        margin-left:30px;
+                        position: relative;
+                        width:90%;
+                        max-width: 100%;
+                        text-align: center;
+                    
                     }
                 }
                 
