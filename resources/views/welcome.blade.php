@@ -263,6 +263,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#"><span class="fa fa-home"></span><span class="link"> Home</span></a>
+			<a class="navbar-brand" href=""><span class="fa fa-home"></span><span class="link"> Add Bookings</span></a>
 		</div>
 		<!-- Nav Collapse -->
 		<div class="navbar-collapse collapse" id="collapse-1">

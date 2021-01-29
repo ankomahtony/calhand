@@ -142,7 +142,7 @@ class BookingController extends Controller
         $phone_number = $event_to_update->location;
 
         if(!$phone_number){
-            $output = $event_det->name;
+            $output = $event_to_update->name;
             preg_match('/\b[0][0-9]{9}\b/',$output,$matches); 
             if($matches){
                 $phone_number=$matches[0];
