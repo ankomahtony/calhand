@@ -18,6 +18,7 @@
         function addPersonalisedDestination($phoneNumber, $throwEx, $values, $messageId = null);
         function personalisedValuesExists($phoneNumber, $values);
         function removePersonalisedValues($phoneNumber, $values);
+        function removePersonalisedDestination($phoneNumber, $values);
         function updatePersonalisedValuesById($messageId, $newValues);
         function updatePersonalisedValues($phoneNumber, $newValues, $prevValues = null);
         function updatePersonalisedValuesWithId($phoneNumber, $newValues, $newMessageId);

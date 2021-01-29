@@ -26,7 +26,7 @@
             $this->_messagesList[] = $item;
         }
         
-        public function getItemByIndex($idx){
+        public function getItem($idx){
             if (is_null($idx) || !is_numeric($idx))
                 throw new \Exception('Invalid valid for message composer item.');
             

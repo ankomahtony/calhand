@@ -23,7 +23,7 @@ class BookingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
+    {
         $event_details = Event::get();
         $now = Carbon::now();
         $now->setTime(0,0);
@@ -41,7 +41,7 @@ class BookingController extends Controller
                     }
                 }
                 
-                $this->sendMessage("Hello,a reminder that you have an appointment with Dr. Marbell Tomorrow (".$event_det->startDateTime->format('D F j, Y, g:i a').") You can whatsapp. https://wa.me/message/LRBNMX5HPDIFI1 or call 0247241447 for any information. Thank you.",$phone_number);
+                $this->sendMessage("Hello,a reminder that you have an appointment with Dr. Marbell Tomorrow (".$event_det->startDateTime->format('D M j, Y, g:i a').") You can whatsapp. https://wa.me/message/LRBNMX5HPDIFI1 or call 0247241447 for any information. Thank you.",$phone_number);
             }
             $phone_number = $event_det->location;
             if(!$phone_number){
@@ -56,7 +56,7 @@ class BookingController extends Controller
 
                     $event_det->description = "Message Sent";
                     $event_det->save();
-                    $this->sendMessage("Hello, your appointment with Dr. Marbell has been booked successfully on ".$event_det->startDateTime->format('D F j, Y, g:i a')."to ".$event_det->endDateTime->format('g:i a')." You can whatsapp https://wa.me/message/LRBNMX5HPDIFI1 or call 0247241447 for any information. Thank you for working with us.",$phone_number);
+                    $this->sendMessage("Hello, your appointment with Dr. Marbell has been booked successfully on ".$event_det->startDateTime->format('D M j, Y, g:i a')." to ".$event_det->endDateTime->format('g:i a')." You can whatsapp https://wa.me/message/LRBNMX5HPDIFI1 or call 0247241447 for any information. Thank you for working with us.",$phone_number);
                     
             }
            
@@ -92,7 +92,7 @@ class BookingController extends Controller
             'description'=>"Message Sent",
             'location'=>$request->input('location')
         ]);
-        $this->sendMessage("Hello, your appointment with Dr. Marbell has been booked successfully on ".$startTime->format('D F j, Y, g:i a')." You can whatsapp https://wa.me/message/LRBNMX5HPDIFI1 or call 0247241447 for any information. Thank you for working with us.",$request->input('location'));
+        $this->sendMessage("Hello, your appointment with Dr. Marbell has been booked successfully on ".$startTime->format('D M j, Y, g:i a')." You can whatsapp https://wa.me/message/LRBNMX5HPDIFI1 or call 0247241447 for any information. Thank you for working with us.",$request->input('location'));
         return redirect('/bookings')->withMessage('You Have Booked'.$request->input('name').' Successfully');
     }
 
@@ -148,7 +148,7 @@ class BookingController extends Controller
                 $phone_number=$matches[0];
             }
         }
-        $this->sendMessage("Hello, your appointment with Dr. Marbell has been rescheduled to ".$startTime->format('D F j, Y, g:i a')." You can whatsapp https://wa.me/message/LRBNMX5HPDIFI1 or call 0247241447 for any information. Thank you.",0540731665);
+        $this->sendMessage("Hello, your appointment with Dr. Marbell has been rescheduled to ".$startTime->format('D M j, Y, g:i a')." You can whatsapp https://wa.me/message/LRBNMX5HPDIFI1 or call 0247241447 for any information. Thank you.",$phone_number);
         return redirect()->back()->withMessage('Appointment Rescheduled Successfully');
     }
 

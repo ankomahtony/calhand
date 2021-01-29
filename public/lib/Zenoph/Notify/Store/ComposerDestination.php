@@ -77,7 +77,7 @@
             return $this->_destMode;
         }
         
-        public function getDestinationData() {
+        public function getData() {
             return $this->_destData;
         }
         

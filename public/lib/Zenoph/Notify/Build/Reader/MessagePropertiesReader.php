@@ -68,13 +68,13 @@
                 if (!is_null($this->_authProfile))
                     $params['authProfile'] = $this->_authProfile;
 
-                if ($category == MessageCategory::SMS){
+                if ($category == MessageCategory::MC_SMS){
                     $params['category'] = $category;
 
                     $messageComposer = SMSComposer::create($params);
                     $this->setTextMessageProperties($messageComposer, $messageProps);
                 }
-                else if ($category == MessageCategory::VOICE){
+                else if ($category == MessageCategory::MC_VOICE){
                     $messageComposer = VoiceComposer::create($params);
                     $this->setVoiceMessageProperties($messageComposer, $messageProps);
                 }

@@ -8,9 +8,9 @@
     namespace Zenoph\Notify\Enums;
     
     class MessageCategory {
-        const SMS = 1;
-        const VOICE = 2;
-        const USSD = 3;
+        const MC_SMS = 1;
+        const MC_VOICE = 2;
+        const MC_USSD = 3;
         
         public static function isDefined($category){
             $reflector = new \ReflectionClass(__CLASS__);

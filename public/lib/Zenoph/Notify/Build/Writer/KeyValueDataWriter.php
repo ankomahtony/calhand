@@ -85,7 +85,7 @@
             $this->writeCommonMessageProperties($tmc, $store);
             
             // For USSD, write additional info
-            if ($tmc->getCategory() == MessageCategory::USSD)
+            if ($tmc->getCategory() == MessageCategory::MC_USSD)
                 $this->writeUSSDData ($tmc, $store);
             
             // write destinations
@@ -104,7 +104,7 @@
             $category = $tmc->getCategory();
             
             // append category
-            $categoryLabel = $category == MessageCategory::SMS ? "sms" : "ussd";
+            $categoryLabel = $category == MessageCategory::MC_SMS ? "sms" : "ussd";
             
             $this->appendKeyValueData($store, "category", $categoryLabel);
             $this->appendKeyValueData($store, "text", $messageText);
@@ -319,7 +319,7 @@
             $this->writeMessageTemplateId($mc->getTemplateId(), $store);
             
             // properties to be written will depend on the message category
-            if ($category == MessageCategory::SMS || $category == MessageCategory::USSD)
+            if ($category == MessageCategory::MC_SMS || $category == MessageCategory::MC_USSD)
                 $this->writeSMSProperties($mc, $store);
             else
                 $this->writeVoiceMessageProperties($mc, $store);
@@ -355,7 +355,7 @@
                 $mc->validateDestinationSenderName($phoneNumber);
                 
                 // other data
-                $destData = $compDest->getDestinationData();
+                $destData = $compDest->getData();
                 $messageId = $compDest->getMessageId();
                 
                 switch ($destMode){

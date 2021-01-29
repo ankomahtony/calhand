@@ -139,7 +139,7 @@
             $messageType = $tmc->getMessageType();
             $category = $tmc->getCategory();
             
-            $categoryLabel = $category == MessageCategory::SMS ? "sms" : "ussd";
+            $categoryLabel = $category == MessageCategory::MC_SMS ? "sms" : "ussd";
             
             // start writing message properties
             $xmlWriter->writeElement('category', $categoryLabel);
@@ -267,7 +267,7 @@
                 
                 // get other values
                 $messageId = $compDest->getMessageId();
-                $destData  = $compDest->getDestinationData();
+                $destData  = $compDest->getData();
                 
                 // write destination item
                 $this->writeDestinationItem($phoneNumber, $messageId, $destData, $writer);
@@ -401,6 +401,9 @@
             // If templateId is specified, then we should load specific message
             $templateId = $filter['templateId'];
             
+            // write message element
+            $xmlWriter->startElement('message');
+            
             if (!is_null($templateId) && !empty($templateId)){
                 $this->writeMessageTemplateId($templateId, $xmlWriter);
             }
@@ -421,6 +424,9 @@
                     $xmlWriter->endElement();   // end dateTime element
                 }
             }
+            
+            // end message element
+            $xmlWriter->endElement();
             
             // prepare output
             $xmlFragment = $xmlWriter->outputMemory();
@@ -443,7 +449,7 @@
                 $this->writeMessageTemplateId($mc->getTemplateId(), $xmlWriter);
                 
                 // message properties to be written will depend on the category
-                if ($category == MessageCategory::SMS || $category == MessageCategory::USSD)
+                if ($category == MessageCategory::MC_SMS || $category == MessageCategory::MC_USSD)
                     $this->writeSMSProperties ($mc, $xmlWriter);
                 else /// voice message then
                     $this->writeVoiceProperties ($mc, $xmlWriter);
@@ -567,7 +573,24 @@
             if (is_null($templateId) || empty($templateId))
                 throw new \Exception('Invalid template identifier for writing scheduled message destinations load request.');
             
-            return $this->writeTemplateIdArgumentRequest($templateId);
+            $this->embedAuthData();
+            $xmlWriter = self::initXmlWriter();
+            
+            // write message element
+            $xmlWriter->startElement('message');
+            
+            // write template Id
+            $this->writeMessageTemplateId($templateId, $xmlWriter);
+            
+            // end message element
+            $xmlWriter->endElement();
+            
+            // prepare output
+            $xmlFragment = $xmlWriter->outputMemory();
+            $this->_requestBody = str_replace(self::__DATA_PLACEHOLDER__, $xmlFragment, $this->_requestBody);
+            
+            // return request body
+            return $this->_requestBody;
         }
         
         public function &writeCancelScheduleRequest($templateId) {

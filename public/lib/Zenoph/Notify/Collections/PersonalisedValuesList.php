@@ -29,7 +29,7 @@
             return count($this->_valuesArr);
         }
         
-        public function getItemByIndex($idx){
+        public function getItem($idx){
             if (is_null($idx) || !is_numeric($idx))
                 throw new \Exception('Invalid value for getting personalised values item.');
             

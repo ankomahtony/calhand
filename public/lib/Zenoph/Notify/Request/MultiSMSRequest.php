@@ -39,7 +39,7 @@
         
         private function assertMessageCategory($mc){
             // For multi-messages, we only allow for SMS message category
-            if ($mc->getCategory() != MessageCategory::SMS)
+            if ($mc->getCategory() != MessageCategory::MC_SMS)
                 throw new \Exception("Multi-messages are allowed only for SMS message category.");
         }
         

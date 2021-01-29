@@ -263,7 +263,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#"><span class="fa fa-home"></span><span class="link"> Home</span></a>
-			<a class="navbar-brand" href=""><span class="fa fa-home"></span><span class="link"> Add Bookings</span></a>
+			<a class="navbar-brand" href="{{route('bookings.create')}}"><span class="fa fa-plus"></span><span class="link"> Add Bookings</span></a>
 		</div>
 		<!-- Nav Collapse -->
 		<div class="navbar-collapse collapse" id="collapse-1">
@@ -340,7 +340,7 @@
                 <hr>
                 @if($timePeriod==30)
                     <div class="card-container-mini" style="display:inline-block;">
-                        <span class="pro">Time: {{$minDate}} TO {{$endTime}} Period: {{$period_disp}}</span>
+                        <span class="pro">Time: {{$minDate}} TO {{$endTime}}  - {{$event->description}}</span>
                         <!-- <span class="pro">Time: </span> -->
                         <img class="round" src="/computer-icons-portable-network-graphics-user-profile-avatar-png-favpng-L1ihcbxsHbnBKBvjjfBMFGbb7.jpg" alt="user" />
                         <h6 class="h6">{{$event->name}}</h6>
@@ -350,6 +350,8 @@
                             preg_match('/\b[0][0-9]{9}\b/',$output,$matches); 
                             if($matches){
                                 $tel_number=$matches[0];
+                            }else{
+                                $tel_number="No Phone number";
                             }
                         @endphp
                         <h6 class="h6 btn-success">{{$tel_number ?? 'No phone number'}}</h6>
@@ -365,7 +367,7 @@
 
                 @else
                     <div class="card-container" style="display:inline-block;">
-                        <span class="pro">Time: {{$minDate}} TO {{$endTime}} Period: {{$period_disp}}</span>
+                        <span class="pro">Time: {{$minDate}} TO {{$endTime}}  - {{$event->description}}</span>
                         <!-- <span class="pro">Time: </span> -->
                         <img class="round" src="/computer-icons-portable-network-graphics-user-profile-avatar-png-favpng-L1ihcbxsHbnBKBvjjfBMFGbb7.jpg" alt="user" />
                         <h6 class="h6">{{$event->name}}</h3>
@@ -375,6 +377,8 @@
                             preg_match('/\b[0][0-9]{9}\b/',$output,$matches); 
                             if($matches){
                                 $tel_number=$matches[0];
+                            }else{
+                                $tel_number="No Phone number";
                             }
                         @endphp
                         <h6 class="h6 btn-success">{{$tel_number ?? 'No phone number'}}</h6>
@@ -393,7 +397,7 @@
             @else
                 @if($timePeriod==30)
                     <div class="card-container-mini" style="display:inline-block;">
-                        <span class="pro">Time: {{$minDate}} TO {{$endTime}}</span>
+                        <span class="pro">Time: {{$minDate}} TO {{$endTime}}  - {{$event->description}}</span>
                         <img class="round" src="/computer-icons-portable-network-graphics-user-profile-avatar-png-favpng-L1ihcbxsHbnBKBvjjfBMFGbb7.jpg" alt="user" />
                         <h6 class="h6">{{$event->name}}</h6>
                         <h6 class="h6">{{$event->location}}</h6>
@@ -402,6 +406,8 @@
                             preg_match('/\b[0][0-9]{9}\b/',$output,$matches); 
                             if($matches){
                                 $tel_number=$matches[0];
+                            }else{
+                                $tel_number="No Phone number";
                             }
                         @endphp
                         <h6 class="h6 btn-success">{{$tel_number ?? 'No phone number'}}</h6>
@@ -416,15 +422,22 @@
                     </div>
                 @else
                     <div class="card-container" style="display:inline-block;">
-                        <span class="pro">Time: {{$minDate}} TO {{$endTime}}</span>
+                        <span class="pro">Time: {{$minDate}} TO {{$endTime}} - {{$event->description}}</span>
                         <img class="round" src="/computer-icons-portable-network-graphics-user-profile-avatar-png-favpng-L1ihcbxsHbnBKBvjjfBMFGbb7.jpg" alt="user" />
                         <h3 class="h6">{{$event->name}}</h6>
                         <h6 class="h6">{{$event->location}}</h6>
                         @php 
-                            $output = $event->name;
-                            preg_match('/\b[0][0-9]{9}\b/',$output,$matches); 
-                            if($matches){
-                                $tel_number=$matches[0];
+                            $loc_number = $event->location;
+                            if($loc_number){
+                                $tel_number = $loc_number;
+                            }else{
+                                $output = $event->name;
+                                preg_match('/\b[0][0-9]{9}\b/',$output,$matches); 
+                                if($matches){
+                                    $tel_number=$matches[0];
+                                }else{
+                                    $tel_number="No Phone number";
+                                }
                             }
                         @endphp
                         <h6 class="h6 btn-success">{{$tel_number ?? 'No phone number'}}</h6>

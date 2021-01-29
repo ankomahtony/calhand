@@ -14,6 +14,7 @@
         private $_phoneNumber = null;
         private $_messageId = null;
         private $_status = null;
+        private $_statusId = null;
         private $_validation = null;
         private $_submitDateTime = null;
         private $_reportDateTime = null;
@@ -34,8 +35,10 @@
             if (isset($data['messageId']) && !empty($data['messageId']))
                 $msgDest->_messageId = $data['messageId'];
             
-            if (isset($data['destStatus']) && is_numeric($data['destStatus']))
-                $msgDest->_status = $data['destStatus'];
+            if (isset($data['statusId']) && is_numeric($data['statusId'])) {
+                $msgDest->_statusId = $data['statusId'];
+                self::setDestinationStatus($msgDest);
+            }
             
             if (isset($data['destValidation']) && is_numeric($data['destValidation']))
                 $msgDest->_validation = $data['destValidation'];
@@ -62,6 +65,15 @@
             return $msgDest;
         }
         
+        private static function setDestinationStatus($destInfo){
+            if (!DestinationStatus::isDefined($destInfo->_statusId)){
+                $destInfo->_status = DestinationStatus::DS_UNKNOWN;
+            }
+            else {
+                $destInfo->_status = $destInfo->_statusId;
+            }
+        }
+        
         public function getMessageCount(){
             return $this->_messageCount;
         }
@@ -76,6 +88,10 @@
         
         public function getStatus(){
             return $this->_status;
+        }
+        
+        public function getStatusId(){
+            return $this->_statusId;
         }
         
         public function getValidation(){

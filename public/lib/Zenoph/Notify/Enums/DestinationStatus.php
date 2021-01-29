@@ -46,4 +46,16 @@
         const DS_REJECTED_WAP_TITLE = 2136;
         const DS_REJECTED_WAP_URL = 2137;
         const DS_IGNORED_LOAD_MAX = 2138;
+        
+        public static function isDefined($statusId){
+            $reflector = new \ReflectionClass(__CLASS__);
+            $constants = $reflector->getConstants();
+            
+            foreach ($constants as $constVal){
+                if ($statusId === $constVal)
+                    return true;
+            }
+            
+            return false;
+        }
     }

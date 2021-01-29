@@ -10,6 +10,7 @@
     interface IComposer {
         function addDestination($phoneNumber, $throwEx = true, $messageId = null);
         function addDestinationsFromTextStream(&$str);
+        function addDestinationsFromCollection(&$phoneNumbers, $throwEx = false);
         function getDestinationCountry($phoneNumber);
         function getDefaultDestinationCountry();
         function getDestinations();

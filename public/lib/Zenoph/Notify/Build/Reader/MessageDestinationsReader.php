@@ -84,7 +84,7 @@
             
             // destination status
             if (isset($xml->status) && isset($xml->status->id))
-                $destInfo['destStatus'] = (int)$xml->status->id;
+                $destInfo['statusId'] = (int)$xml->status->id;
             
             // destination validation
             if (isset($xml->validation) && isset($xml->validation->id))
@@ -115,7 +115,7 @@
             }
             
             if (count($destInfo) > 0)
-                return MessageDestination::create ($destInfo);
+                return MessageDestination::create($destInfo);
             
             return null;
         }

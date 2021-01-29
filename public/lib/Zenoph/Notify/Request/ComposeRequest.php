@@ -152,6 +152,11 @@
             return $this->_composer->addDestinationsFromTextStream($str);
         }
         
+        public function addDestinationsFromCollection(&$phoneNumbers, $throwEx = false) {
+            $this->assertComposer();
+            return $this->_composer->addDestinationsFromCollection($phoneNumbers, $throwEx);
+        }
+        
         public function addDestination($phoneNumber, $throwEx = true, $messageId = null) {
             $this->assertComposer();
             return $this->_composer->addDestination($phoneNumber, $throwEx, $messageId);

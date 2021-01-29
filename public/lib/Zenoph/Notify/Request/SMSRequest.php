@@ -146,6 +146,11 @@
             return $this->_composer->removePersonalisedValues($phoneNumber, $values);
         }
         
+        public function removePersonalisedDestination($phoneNumber, $values) {
+            $this->assertComposer();
+            return $this->_composer->removePersonalisedDestination($phoneNumber, $values);
+        }
+        
         public function addPersonalisedDestination($phoneNumber, $throwEx, $values, $messageId = null) {
             $this->assertComposer();
             return $this->_composer->addPersonalisedDestination($phoneNumber, $throwEx, $values, $messageId);
@@ -160,7 +165,7 @@
             $this->assertComposer();
             return $this->_composer->getPersonalisedDestinationWriteMode($phoneNumber, $values);
         }
-        
+       
         public function personalisedValuesExists($phoneNumber, $values) {
             $this->assertComposer();
             return $this->_composer->personalisedValuesExists($phoneNumber, $values);
@@ -172,7 +177,7 @@
         }
 
         public static function getMessageVariablesCount($message) {
-            return TextMessageContainer::getMessageVariablesCount($message);
+            return SMSComposer::getMessageVariablesCount($message);
         }
         
         public static function &getMessageVariables($message, $trim = false){

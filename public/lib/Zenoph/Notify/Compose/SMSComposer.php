@@ -30,7 +30,7 @@
         public function __construct($ap = null) {
             parent::__construct($ap);
             $this->_type = TextMessageType::TEXT;
-            $this->_category = MessageCategory::SMS;
+            $this->_category = MessageCategory::MC_SMS;
             
             if (!is_null($ap) && $ap instanceof SMSComposer){
                 $ap->getUserData()->getDefaultTextMessageType();
@@ -256,6 +256,15 @@
             return $this->addDestinationInfo($fmtdNumber, $countryCode, $messageId, $pv);
         }
         
+        public function getPersonalisedMessageId($phoneNumber) {
+            if (!$this->isPersonalised()){
+                return parent::getMessageId($phoneNumber);
+            }
+            else {
+                
+            }
+        }
+        
         public function addDestination($phoneNumber, $throwEx = true, $messageId = null) {
             // if the message is personalised, then this is not the right method to be called.
             if (!is_null($this->_message) && !empty($this->_message)){
@@ -298,6 +307,34 @@
             $valuesList = $this->getPersonalisedValues($fmtdNumber);
             
             return $this->valuesExist($valuesList, $values);
+        }
+        
+        public function removePersonalisedDestination($phoneNumber, $values) {
+            if (is_null($phoneNumber) || !is_string($phoneNumber) || empty($phoneNumber))
+                throw new \Exception("Invalid phone number for removing message destination.");
+            
+            if (is_null($values) || !is_array($values) || count($values) == 0)
+                throw new \Exception("Invalid personalised values for removing message destination.");
+            
+            if (!$this->destinationExists($phoneNumber))
+                throw new \Exception("Phone number '{$phoneNumber}' does not exist.");
+                
+            // we will need the formatted phone number to obtain the composer destination object
+            $numberInfo = $this->formatPhoneNumber($phoneNumber);
+            $fmtdNumber = $numberInfo[0];
+            
+            // get the composer destination objects that this phone number maps to
+            $compDestsList = $this->getMappedDestinations($fmtdNumber);
+            
+            foreach ($compDestsList as $compDest){
+                $psndValues = $compDest->getData();
+                
+                if (join(",", $psndValues->export()) == join(",", $values)){
+                    return $this->removeComposerDestination($compDest);
+                }
+            }
+            
+            return false;
         }
 
         public function removePersonalisedValues($phoneNumber, $values) {
@@ -396,27 +433,18 @@
             // at this point we could find one with the specified values
             throw new \Exception('The specified personalised values were not found for the destination.');
         }
-        
+      
         public function getPersonalisedDestinationMessageId($phoneNumber, $values) {
             // message should be personalised
             if (!$this->isPersonalised())
                 throw new \Exception('Message is not personalised for getting destination message identifier.');
             
-            // validate inputs
-            if (is_null($phoneNumber) || empty($phoneNumber))
-                throw new \Exception('Invalid phone number for getting destination message identifier.');
-            
             if (is_null($values) || !is_array($values) || count($values) == 0)
                 throw new \Exception('Invalid values for getting destination message identifier.');
             
-            if (!$this->destinationExists($phoneNumber))
-                throw new \Exception("Phone number '{$phoneNumber}' does not exist.");
-                
-            $numberInfo = $this->formatPhoneNumber($phoneNumber);
-            $fmtdNumber = $numberInfo[0];
-            
             // get the composer destinations and iterate for the specified values
-            $compDestsStore = $this->getMappedDestinations($fmtdNumber);
+            $fmtdPhoneNumber = $this->getFormattedPhoneNumber($phoneNumber);
+            $compDestsStore = $this->getMappedDestinations($fmtdPhoneNumber);
             $compDestsArr = &$compDestsStore->getItems();
             
             foreach ($compDestsArr as $compDest){

@@ -70,8 +70,8 @@
         
         public static function isValidMessageCategory($category){
             switch ($category){
-                case MessageCategory::SMS:
-                case MessageCategory::VOICE:
+                case MessageCategory::MC_SMS:
+                case MessageCategory::MC_VOICE:
                     return true;
                     
                 default:
@@ -131,13 +131,13 @@
         
         public static function getMessageCategoryLabel($category){
             switch ($category){
-                case MessageCategory::SMS:
+                case MessageCategory::MC_SMS:
                     return "sms";
                     
-                case MessageCategory::VOICE:
+                case MessageCategory::MC_VOICE:
                     return "voice";
                     
-                case MessageCategory::USSD:
+                case MessageCategory::MC_USSD:
                     return "ussd";
                     
                 default:

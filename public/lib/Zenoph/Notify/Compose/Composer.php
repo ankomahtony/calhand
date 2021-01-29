@@ -267,6 +267,18 @@
                 return $this->_userData->formatPhoneNumber($phoneNumber, $throwEx);
         }
         
+        protected function getFormattedPhoneNumber($phoneNumber){
+            // validate inputs
+            if (is_null($phoneNumber) || empty($phoneNumber))
+                throw new \Exception('Invalid phone number for getting destination message identifier.');
+
+            if (!$this->destinationExists($phoneNumber))
+                throw new \Exception("Phone number '{$phoneNumber}' does not exist.");
+                
+            $numberInfo = $this->formatPhoneNumber($phoneNumber);
+            return $numberInfo[0];
+        }
+        
         public function clearDestinations() {
             unset($this->_messageIdsMap);
             unset($this->_destinationsKeyMap);
@@ -292,6 +304,24 @@
             }
             
             return $addCount;
+        }
+        
+        public function addDestinationsFromCollection(&$phoneNumbers, $throwEx = false) {
+            if (is_null($phoneNumbers) || !is_array($phoneNumbers))
+                throw new \Exception('Invalid collection for adding destinations.');
+            
+            if (!is_bool($throwEx))
+                throw new \Exception("Invalid argument for exception handling.");
+            
+            $count = 0;
+            
+            foreach ($phoneNumbers as $phoneNum){
+                if ($this->addDestination($phoneNum, $throwEx) == NumberAddInfo::NAI_OK){
+                    $count++;
+                }
+            }
+            
+            return $count;
         }
         
         public function addDestination($phoneNumber, $throwEx = true, $messageId = null) {

@@ -191,8 +191,8 @@
         }
 
         private static function extractMessageSenders($baseNode, &$userData){
-            $smsLabel = MessageUtil::getMessageCategoryLabel(MessageCategory::SMS);
-            $voiceLabel = MessageUtil::getMessageCategoryLabel(MessageCategory::VOICE);
+            $smsLabel = MessageUtil::getMessageCategoryLabel(MessageCategory::MC_SMS);
+            $voiceLabel = MessageUtil::getMessageCategoryLabel(MessageCategory::MC_VOICE);
             
             // SMS message senders
             if (isset($baseNode->messageSenders->{$smsLabel})){

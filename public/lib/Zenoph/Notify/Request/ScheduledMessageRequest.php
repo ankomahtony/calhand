@@ -37,7 +37,7 @@
                 throw new \Exception('Authentication profile has not been verified.');
             
             parent::__construct($authProfile);
-            $this->_category = MessageCategory::SMS;    // by default
+            $this->_category = MessageCategory::MC_SMS;    // by default
         }
         
         public static function initShared(){
@@ -139,7 +139,7 @@
                 return null;
 
             // There is only one item
-            return $scheduledList->getItemByIndex(0);
+            return $scheduledList->getItem(0);
         }
      
         private function createMessages(&$dataFragment){ 
