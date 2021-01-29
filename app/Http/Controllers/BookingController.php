@@ -146,7 +146,6 @@ class BookingController extends Controller
             preg_match('/\b[0][0-9]{9}\b/',$output,$matches); 
             if($matches){
                 $phone_number=$matches[0];
-                dd($phone_number);
             }
         }
         $this->sendMessage("Hello, your appointment with Dr. Marbell has been rescheduled to ".$startTime->format('D F j, Y, g:i a')." You can whatsapp https://wa.me/message/LRBNMX5HPDIFI1 or call 0247241447 for any information. Thank you.",$phone_number);
