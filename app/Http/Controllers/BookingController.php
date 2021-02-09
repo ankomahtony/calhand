@@ -52,7 +52,7 @@ class BookingController extends Controller
                     // dd(var_dump($phone_number));
                 }
             }
-            if($eventDes=='' and $minDate > 1440 and $phone_number != ""){
+            if($eventDes=='' and $phone_number != ""){
 
                     $event_det->description = "Message Sent";
                     $event_det->save();
