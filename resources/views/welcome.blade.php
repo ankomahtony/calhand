@@ -334,9 +334,9 @@
                 }         
             @endphp
             <!-- @if($minDate > 0) -->
-            @if($event->startDateTime->diffInDays() > $day->diffInDays())
+            @if($event->startDateTime->day != $day->day)
             @php $day = $event->startDateTime; @endphp
-            <h2 align="center"> {{$day->format('l jS \\of F, Y') }} </h2>
+            <h2 align="center"> {{$day->format('l jS \\of F, Y') }}</h2>
                 <hr>
                 @if($timePeriod==30)
                     <div class="card-container-mini" style="display:inline-block;">
